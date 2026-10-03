@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, ArrowUpRight, Check, Fingerprint, ScanSearch, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Check, Fingerprint, ScanSearch, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SafetyNote } from "@/components/flow";
 import hero from "@/assets/investorsafe-hero.jpg";
@@ -17,7 +17,7 @@ const features = [
 function Home() {
   return <>
     <main>
-      <section className="hero" style={{ backgroundImage: `linear-gradient(90deg, var(--background) 0%, color-mix(in oklch, var(--background) 96%, transparent) 27%, color-mix(in oklch, var(--background) 50%, transparent) 59%, transparent 100%), url(${hero})` }}>
+      <section className="hero"><img className="hero-image" src={hero} alt="Phone displaying a protected message conversation" width={1600} height={1000}/>
         <div className="page-wrap hero-inner"><div className="hero-copy">
           <span className="eyebrow"><span className="eyebrow-line"/> INVESTOR SAFETY, MADE SIMPLE</span>
           <h1>Check Before<br/>You <em>Invest.</em></h1>

@@ -185,8 +185,10 @@
 .footer-inner { min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .eyebrow { display: inline-flex; align-items: center; gap: 11px; color: var(--primary); font-size: 11px; font-weight: 800; letter-spacing: .15em; }
 .eyebrow-line { width: 21px; height: 1px; background: var(--primary); display: inline-block; }
-.hero { min-height: 595px; background-size: cover; background-position: center; border-bottom: 1px solid var(--border); }
-.hero-inner { min-height: 595px; display: flex; align-items: center; }
+.hero { position: relative; min-height: 595px; overflow: hidden; border-bottom: 1px solid var(--border); }
+.hero-image { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.hero::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, var(--background) 0%, color-mix(in oklch, var(--background) 96%, transparent) 27%, color-mix(in oklch, var(--background) 50%, transparent) 59%, transparent 100%); }
+.hero-inner { position: relative; z-index: 1; min-height: 595px; display: flex; align-items: center; }
 .hero-copy { width: min(620px, 61%); padding: 45px 0 47px; }
 .hero h1 { font-size: clamp(56px, 5.3vw, 83px); line-height: 1.1; font-weight: 800; margin: 26px 0 20px; }
 .hero h1 em { color: var(--primary); font-style: normal; }
@@ -306,7 +308,7 @@
 .editorial-item h2 { font-size: 19px; font-weight: 700; margin: 18px 0 9px; }
 .editorial-item p { color: var(--muted-foreground); font-size: 13px; line-height: 1.75; }
 @media (max-width: 800px) {
- .hero { background-position: 60% center; }
+ .hero-image { object-position: 60% center; }
  .hero-copy { width: 72%; }
  .feature-grid, .editorial-grid { grid-template-columns: 1fr; }
  .feature-card { min-height: auto; }
@@ -317,7 +319,8 @@
 @media (max-width: 600px) {
  .page-wrap { width: min(100% - 36px, 1180px); }
  .hero, .hero-inner { min-height: 600px; }
- .hero { background-position: 67% center; background-image: linear-gradient(90deg, var(--background) 0%, color-mix(in oklch, var(--background) 89%, transparent) 55%, color-mix(in oklch, var(--background) 54%, transparent) 100%), var(--hero-image) !important; }
+ .hero-image { object-position: 67% center; }
+ .hero::after { background: linear-gradient(90deg, var(--background) 0%, color-mix(in oklch, var(--background) 89%, transparent) 55%, color-mix(in oklch, var(--background) 54%, transparent) 100%); }
  .hero-copy { width: 100%; padding-top: 32px; }
  .hero h1 { font-size: 53px; }
  .hero-copy > p { font-size: 15px; max-width: 390px; }
