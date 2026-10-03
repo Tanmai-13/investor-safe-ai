@@ -22,10 +22,12 @@ function inspectMessage(message: string, demo: boolean): Analysis {
     findings.push({ title: "External Platform", description: "The message directs you to another platform, group, or app.", icon: "platform" });
   }
   detectedPlatforms.forEach((value) => details.push({ label: "Platform", value }));
+  const upis = message.match(/\b[a-z0-9._-]+@(?:upi|ybl|ibl|axl|okaxis|okhdfcbank|oksbi|okicici|paytm|apl|sbi|icici|hdfcbank|airtel|fbl)\b/gi) ?? [];
+  [...new Set(upis)].slice(0, 3).forEach((value) => details.push({ label: "UPI ID", value }));
+  const emails = message.match(/\b[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}\b/gi) ?? [];
+  [...new Set(emails)].slice(0, 3).forEach((value) => details.push({ label: "Email", value }));
   const urls = message.match(/(?:https?:\/\/)?(?:[a-z0-9-]+\.)+[a-z]{2,}(?:\/[^\s]*)?/gi) ?? [];
-  [...new Set(urls)].slice(0, 4).forEach((value) => details.push({ label: "URL", value }));
-  const upis = message.match(/\b[a-z0-9._-]+@[a-z][a-z0-9.-]+\b/gi) ?? [];
-  [...new Set(upis)].filter((value) => !value.includes(".com")).slice(0, 3).forEach((value) => details.push({ label: "UPI ID / handle", value }));
+  [...new Set(urls)].filter((value) => !emails.some((email) => email.endsWith(value))).slice(0, 4).forEach((value) => details.push({ label: "URL", value }));
   const phones = message.match(/(?:\+91[\s-]?)?[6-9]\d{9}\b/g) ?? [];
   [...new Set(phones)].slice(0, 3).forEach((value) => details.push({ label: "Phone", value }));
   if (demo) {
