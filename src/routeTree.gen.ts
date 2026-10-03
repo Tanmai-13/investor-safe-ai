@@ -10,12 +10,21 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AnalysisRouteImport } from './routes/analysis'
 import { Route as CheckRouteImport } from './routes/check'
 import { Route as HowItWorksRouteImport } from './routes/how-it-works'
+import { Route as ResultsRouteImport } from './routes/results'
+import { Route as SafetyRouteImport } from './routes/safety'
+import { Route as VerifyRouteImport } from './routes/verify'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AnalysisRoute = AnalysisRouteImport.update({
+  id: '/analysis',
+  path: '/analysis',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CheckRoute = CheckRouteImport.update({
@@ -28,35 +37,88 @@ const HowItWorksRoute = HowItWorksRouteImport.update({
   path: '/how-it-works',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ResultsRoute = ResultsRouteImport.update({
+  id: '/results',
+  path: '/results',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SafetyRoute = SafetyRouteImport.update({
+  id: '/safety',
+  path: '/safety',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerifyRoute = VerifyRouteImport.update({
+  id: '/verify',
+  path: '/verify',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/analysis': typeof AnalysisRoute
   '/check': typeof CheckRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/results': typeof ResultsRoute
+  '/safety': typeof SafetyRoute
+  '/verify': typeof VerifyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/analysis': typeof AnalysisRoute
   '/check': typeof CheckRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/results': typeof ResultsRoute
+  '/safety': typeof SafetyRoute
+  '/verify': typeof VerifyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/analysis': typeof AnalysisRoute
   '/check': typeof CheckRoute
   '/how-it-works': typeof HowItWorksRoute
+  '/results': typeof ResultsRoute
+  '/safety': typeof SafetyRoute
+  '/verify': typeof VerifyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/check' | '/how-it-works'
+  fullPaths:
+    | '/'
+    | '/analysis'
+    | '/check'
+    | '/how-it-works'
+    | '/results'
+    | '/safety'
+    | '/verify'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/check' | '/how-it-works'
-  id: '__root__' | '/' | '/check' | '/how-it-works'
+  to:
+    | '/'
+    | '/analysis'
+    | '/check'
+    | '/how-it-works'
+    | '/results'
+    | '/safety'
+    | '/verify'
+  id:
+    | '__root__'
+    | '/'
+    | '/analysis'
+    | '/check'
+    | '/how-it-works'
+    | '/results'
+    | '/safety'
+    | '/verify'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AnalysisRoute: typeof AnalysisRoute
   CheckRoute: typeof CheckRoute
   HowItWorksRoute: typeof HowItWorksRoute
+  ResultsRoute: typeof ResultsRoute
+  SafetyRoute: typeof SafetyRoute
+  VerifyRoute: typeof VerifyRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -66,6 +128,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/analysis': {
+      id: '/analysis'
+      path: '/analysis'
+      fullPath: '/analysis'
+      preLoaderRoute: typeof AnalysisRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/check': {
@@ -82,13 +151,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HowItWorksRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/results': {
+      id: '/results'
+      path: '/results'
+      fullPath: '/results'
+      preLoaderRoute: typeof ResultsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/safety': {
+      id: '/safety'
+      path: '/safety'
+      fullPath: '/safety'
+      preLoaderRoute: typeof SafetyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verify': {
+      id: '/verify'
+      path: '/verify'
+      fullPath: '/verify'
+      preLoaderRoute: typeof VerifyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AnalysisRoute: AnalysisRoute,
   CheckRoute: CheckRoute,
   HowItWorksRoute: HowItWorksRoute,
+  ResultsRoute: ResultsRoute,
+  SafetyRoute: SafetyRoute,
+  VerifyRoute: VerifyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
